@@ -1,0 +1,256 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:t="sap.ui.table"
+    xmlns:rowmodes="sap.ui.table.rowmodes"
+>
+    <VBox id="idvboxDtlPrty">
+        <t:Table
+            id="idTransactionTable"
+            rows="{viewModel>/partyDetails}"
+            selectionMode="None"
+            enableBusyIndicator="true"
+            enableColumnReordering="true"
+            rowsUpdated="onRowsUpdated"
+            fixedColumnCount="2"
+        >
+            <t:rowMode>
+                <!-- <rowmodes:Interactive
+                    id="idTransactionRowModeInteractive"
+                    rowCount="1"
+                /> -->
+
+                <rowmodes:Fixed
+                    id="idrwmodeFxd"
+                    rowCount="1"
+                />
+            </t:rowMode>
+
+            <t:extension>
+                <OverflowToolbar id="idTransactionOverflowToolbar">
+                    <Title
+                        id="idTransactionTitle"
+                        text="{i18n>natureOfapproval}"
+                    />
+
+                    <ToolbarSpacer id="idTransactionToolbarSpacer" />
+
+                    <Button
+                        id="idTransactionButtonAdd"
+                        text="{i18n>add}"
+                        icon="sap-icon://add"
+                        type="Accept"
+                        press="onAddTransaction"
+                        visible="{= ${viewModel>/editable} &amp;&amp; ${viewModel>/showAddButton} }"
+                    />
+
+                    <!-- <Button
+                        id="idTransactionButtonDelete"
+                        text="{i18n>delete}"
+                        icon="sap-icon://delete"
+                        type="Reject"
+                        press="onDeleteTransaction"
+                        visible="{viewModel>/editable}"
+                    /> -->
+
+                    <Button
+                        id="idTransactionButtonEdit"
+                        text="{i18n>edit}"
+                        icon="sap-icon://edit"
+                        type="Emphasized"
+                        press="onEditTransaction"
+                        visible="{viewModel>/editable}"
+                    />
+                </OverflowToolbar>
+            </t:extension>
+
+            <t:columns>
+                <t:Column
+                    id="idTransactionColumnSNo"
+                    width="8rem"
+                >
+                    <Label
+                        id="idTransactionLabelSNo"
+                        wrapping="true"
+                        text="{i18n>sNo}"
+                    />
+                    <t:template>
+                        <Text
+                            id="idTransactionTextSNo"
+                            text="1"
+                        />
+                        <!-- <Text
+                            id="idTransactionTextSNo"
+                            text="{viewModel>Counter}"
+                        /> -->
+                    </t:template>
+                </t:Column>
+
+                <t:Column
+                    id="idTransactionColumnNoOfSecurities"
+                    width="18rem"
+                >
+                    <Label
+                        id="idTransactionLabelNoOfSecurities"
+                        wrapping="true"
+                        text="{i18n>noOfSecurities}"
+                    />
+                    <t:template>
+                        <Text
+                            id="idTransactionTextNoOfSecurities"
+                            text="{viewModel>NoOfSecurities}"
+                        />
+                    </t:template>
+                </t:Column>
+
+                <t:Column
+                    id="idTransactionColumnFolioNo"
+                    width="14rem"
+                >
+                    <Label
+                        id="idTransactionLabelFolioNo"
+                        wrapping="true"
+                        text="{i18n>folioNo}"
+                    />
+                    <t:template>
+                        <Text
+                            id="idTransactionTextFolioNo"
+                            text="{viewModel>FolioNo}"
+                        />
+                    </t:template>
+                </t:Column>
+
+                <t:Column
+                    id="idTransactionColumnNatureOfApproval"
+                    width="20rem"
+                >
+                    <Label
+                        id="idTransactionLabelNatureOfApproval"
+                        wrapping="true"
+                        text="{i18n>natureOfApproval}"
+                    />
+                    <t:template>
+                        <Text
+                            id="idTransactionTextNatureOfApproval"
+                            text="{path:'viewModel>NatureOfApproval',
+                                formatter:'.formatter.formatNatureOfTransaction'}"
+                        />
+                    </t:template>
+                </t:Column>
+
+                <t:Column
+                    id="idTransactionColumnEstimatedNo"
+                    width="14rem"
+                >
+                    <Label
+                        id="idTransactionLabelEstimatedNo"
+                        wrapping="true"
+                        text="{i18n>estimatedNo}"
+                    />
+                    <t:template>
+                        <Text
+                            id="idTransactionTextEstimatedNo"
+                            text="{viewModel>EstimatedNo}"
+                        />
+                    </t:template>
+                </t:Column>
+
+                <t:Column
+                    id="idTransactionColumnEstimatedValue"
+                    width="14rem"
+                >
+                    <Label
+                        id="idTransactionLabelEstimatedValue"
+                        wrapping="true"
+                        text="{i18n>estimatedValue}"
+                    />
+                    <t:template>
+                        <Text
+                            id="idTransactionTextEstimatedValue"
+                             text="{ path:'viewModel>EstimatedValue',
+                                formatter:'.formatter.formatAmountToINR'}"
+                        />
+                    </t:template>
+                </t:Column>
+
+                <t:Column
+                    id="idTransactionColumnWhetherProposed"
+                    width="20rem"
+                >
+                    <Label
+                        id="idTransactionLabelWhetherProposed"
+                        wrapping="true"
+                        text="{i18n>whetherProposed}"
+                    />
+                    <t:template>
+                        <Text
+                            id="idTransactionTextWhetherProposed"
+                            text="{viewModel>WhetherProposed}"
+                        />
+                    </t:template>
+                </t:Column>
+
+                <t:Column
+                    id="idTransactionColumnImmediateRelatives"
+                    width="18rem"
+                >
+                    <Label
+                        id="idTransactionLabelImmediateRelatives"
+                        wrapping="true"
+                        text="{i18n>nameOfImmediateRelatives}"
+                    />
+                    <t:template>
+                        <Text
+                            id="idTransactionTextImmediateRelatives"
+                            text="{viewModel>ImmediateRelativeName}"
+                        />
+                    </t:template>
+                </t:Column>
+
+                <!-- <t:Column
+                    id="idTransactionColumnDateOfPurchase"
+                    width="14rem"
+                >
+                    <Label
+                        id="idTransactionLabelDateOfPurchase"
+                        wrapping="true"
+                        text="{i18n>dateOfPurchase}"
+                    />
+                    <t:template>
+                        <Text
+                            id="idTransactionTextDateOfPurchase"
+                            text="{
+                                path:'viewModel>DateOfPurchase',
+                                formatter:'.formatter.formatDate'
+                            }"
+                        />
+                    </t:template>
+                </t:Column> -->
+
+                <t:Column
+                    id="idTransactionColumnPreviousApproval"
+                    width="20rem"
+                >
+                    <Label
+                        id="idTransactionLabelPreviousApproval"
+                        wrapping="true"
+                        text="{i18n>previousApproval}"
+                    />
+                    <t:template>
+                        <Text
+                            id="idTransactionTextPreviousApproval"
+                            text="{
+                                path:'viewModel>PreviousApprovalDate',
+                                formatter:'.formatter.formatDate'
+                            }"
+                        />
+                        <!-- <Text id="idTransactionTextPreviousApproval" text="{viewModel>PreviousApproval}" /> -->
+                    </t:template>
+                </t:Column>
+
+
+                
+            </t:columns>
+        </t:Table>
+    </VBox>
+</core:FragmentDefinition>

@@ -1,0 +1,45 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <VBox
+        id="idBasicDetailsVBox"
+        class="sapUiSmallMargin"
+    >
+        <!-- Header Text -->
+        <FormattedText
+            id="idBasicDetailsHeaderText"
+            htmlText="{path:'viewModel>/PreClearDetails/HeaderText',
+            formatter:'.formatter.formatTextWithBreaks'}"
+            class="sapUiSmallMarginBottom"
+        />
+
+        <!-- Date Field -->
+        <HBox
+            id="idBasicDetailsDateRow"
+            width="100%"
+            alignItems="Center"
+        >
+            <Label
+                id="idBasicDetailsDateLabel"
+                text="{i18n>dateOfJoining}"
+                design="Bold"
+                required="true"
+                class="sapUiSmallMarginEnd"
+            />
+
+            <DatePicker
+                id="idDateOfJoining"
+                width="100%"
+                value="{viewModel>/PreClearDetails/DateOfJoiningDP}"
+                displayFormat="dd.MM.yyyy"
+                valueFormat="yyyyMMdd"
+                editable="false"
+                maxDate="{viewModel>/CurrentDate}"
+                valueState="{viewModel>/DOJValueState}"
+                valueStateText="{viewModel>/DOJValueStateText}"
+                change="onDateChange"
+            />
+        </HBox>
+    </VBox>
+</core:FragmentDefinition>

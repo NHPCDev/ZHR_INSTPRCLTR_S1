@@ -1,0 +1,23 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <!-- <VBox>
+        <FormattedText
+            htmlText="{path:'viewModel>/PreClearDetails/UndertakingText',
+               formatter:'.formatter.formatTextWithBreaks'}"
+        />
+    </VBox> -->
+
+    <Panel id="idPnlUnder"
+        backgroundDesign="Transparent"
+        class="sapUiResponsiveMargin"
+    >
+        <content>
+            <FormattedText id="idFrmPnale" class="undertakingText"
+                htmlText="{path:'viewModel>/PreClearDetails/UndertakingText',
+                       formatter:'.formatter.formatUndertakingText'}"
+            />
+        </content>
+    </Panel>
+</core:FragmentDefinition>

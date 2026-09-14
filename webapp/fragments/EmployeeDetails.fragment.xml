@@ -1,0 +1,31 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    >
+    <FlexBox id="idFBEmpDtl" fitContainer="true" wrap="Wrap">
+        <HBox id="idHboxEmpDtls" class="sapUiSmallMarginBegin" justifyContent="SpaceBetween"  wrap="Wrap" >
+            <!-- first column -->
+            <VBox id="idHboxEmpDtlsVBox1" class="sapUiLargeMarginEnd">
+                <ObjectStatus id="idHeaderEmpId" title="{i18n>employeeIdLabel}" text="{viewModel>/EmpDetails/PERNR}" class="sapUiTinyMarginTop" />
+                <ObjectStatus id="idHeaderEmpName" title="{i18n>employeeNameLabel}" text="{viewModel>/EmpDetails/ENAME}" class="sapUiTinyMarginTop" />
+
+                
+            </VBox>
+            <!-- Second column -->
+            <VBox id="idHboxEmpDtlsVBox2"  class="sapUiLargeMarginEnd">
+            <ObjectStatus id="idObjectStatus11" title="{i18n>employeeUserIdLabel}" text="{viewModel>/EmpDetails/USRID}" class="sapUiTinyMarginTop" />
+            <!-- <ObjectStatus id="idObjectStatus11" title="{i18n>employeeEmailLabel}" text="{viewModel>/EmpDetails/EMAIL}" class="sapUiTinyMarginTop" /> -->
+            <ObjectStatus id="idObjectStatus12" title="{i18n>employeeMobileLabel}" text="{path: 'viewModel>/EmpDetails/MOBILE', formatter: '.formatter.formatBlankValue'}" class="sapUiTinyMarginTop" />
+            </VBox>
+
+            <!-- Third column -->
+            <VBox id="idHboxEmpDtlsVBox3"  class="sapUiLargeMarginEnd">
+            <ObjectStatus id="idHeaderEmpDesignation" title="{i18n>employeeEmailLabel}" text="{viewModel>/EmpDetails/EMAIL}" class="sapUiTinyMarginTop" />
+            <ObjectStatus id="idObjectStatus8" title="{i18n>empDojLabel}" text="{path: 'viewModel>/EmpDetails/DATE_JOIN', formatter: '.formatter.formatDate'}" class="sapUiTinyMarginTop" />
+            
+            </VBox>
+        </HBox>
+    </FlexBox>
+</core:FragmentDefinition>

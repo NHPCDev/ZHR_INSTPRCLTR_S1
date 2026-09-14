@@ -1,0 +1,266 @@
+<mvc:View
+    controllerName="com.nhpc.zhrinstprcltrs1.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:fb="sap.ui.comp.filterbar"
+    xmlns:f="sap.f"
+>
+    <f:DynamicPage
+        id="page1"
+        headerExpanded="true"
+    >
+        <f:header>
+         <f:DynamicPageHeader id="idCompDynamicPageHeader">
+        <f:content>
+            <fb:FilterBar
+                id="idPreclrFilterbar"
+                persistencyKey="myPersKey"
+                useToolbar="false"
+                search=".onDashboardFilterSearch"
+                filterChange=".onFilterChange"
+                afterVariantLoad=".onAfterVariantLoad"
+                showClearOnFB="true"
+                clear="onFilterClear"
+            >
+                <fb:filterGroupItems>
+                    <fb:FilterGroupItem
+                        id="idApplicationNoFilterItem"
+                        name="ApplicationNo"
+                        label="{i18n>applicationNo}"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <Input
+                                id="idApplicationNoInput"
+                                value="{filterModel>/ApplicationNo}"
+                            />
+                        </fb:control>
+                    </fb:FilterGroupItem>
+
+                    <!-- <fb:FilterGroupItem
+                        id="idFinancialYearFilterItem"
+                        name="FinancialYear"
+                        label="{i18n>financialYear}"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                           
+                             <ComboBox
+                                id="idCmboxFinYrFilter"
+                                selectedKey="{filterModel>/Year}"
+                                items="{/FinancialyearF4HSet}"
+                                change="onComboBoxChangeFlt"
+                            >
+                                <core:Item
+                                    id="idCmboxItmFinYrFilter"
+                                    key="{Year}"
+                                    text="{Year}"
+                                />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem> -->
+
+                    <fb:FilterGroupItem
+                        id="idStatusFilterItem"
+                        name="Status"
+                        label="{i18n>status}"
+                        groupName="Group1"
+                        visibleInFilterBar="true"
+                    >
+                        <fb:control>
+                            <ComboBox
+                                id="idStatusComboBox"
+                                selectedKey="{filterModel>/Status}"
+                                items="{/ZHR_CDS_IT_STATUSCODE_F4H}"
+                                change="onComboBoxChangeFlt"
+                            >
+                                <core:Item
+                                    id="idStatusComboBoxItemTemplate"
+                                    key="{Statustext}"
+                                    text="{Statustext}"
+                                />
+                            </ComboBox>
+                        </fb:control>
+                    </fb:FilterGroupItem>
+                </fb:filterGroupItems>
+            </fb:FilterBar>
+            </f:content>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content>
+
+            <VBox id="idPreclrDashboardVbox">
+                <Table
+                    id="idDashboardTable"
+                    mode="None"
+                    growing="true"
+                    growingThreshold="20"
+                    sticky="ColumnHeaders,HeaderToolbar"
+                    updateFinished="onTableUpdateFinished"
+
+                    items="{
+                        path: '/PreClearSet',
+                        filters:[
+                            {
+                                path : 'ApprovalFlag',
+                                operator : 'EQ',
+                                value1 : 'R'
+                            }
+                        ]
+                        
+                    }"
+                    alternateRowColors="true"
+                >
+                    <headerToolbar>
+                        <OverflowToolbar id="idfrm03flwtlbar">
+                            <Title
+                                id="idDashboardTitle"
+                                text="{i18n>compliancedashboardTitle}"
+                            />
+
+                            <ToolbarSpacer id="iddashfrm3tlbr" />
+
+                            <Button
+                                id="idPreclrCreateBtn"
+                                text="{i18n>createBtnText}"
+                                press="handleCreatePress"
+                                type="Emphasized"
+                                enabled="{viewModel>/isCreateAllowed}"
+                                icon="sap-icon://add"
+                            />
+
+                            <Button
+                                id="idSancBtnExport"
+                                type="Reject"
+                                text="{i18n>DownloadReport}"
+                                icon="sap-icon://excel-attachment"
+                                press="onExport"
+                            />
+                        </OverflowToolbar>
+                    </headerToolbar>
+
+                    <columns>
+                        <Column id="idDashfrm3col1" >
+                            <header>
+                                <Label id="ifFrmDashLb1" text="{i18n>applicationNo}" wrapping="true" />
+                            </header>
+                        </Column>
+
+                        <!-- <Column width="10rem">
+                            <header>
+                                <Label text="{i18n>empNo}" />
+                            </header>
+                        </Column> -->
+
+                        <Column id="idDashfrm3col2" >
+                            <header>
+                                <Label id="ifFrmDashLb2" text="{i18n>employeeName}" />
+                            </header>
+                        </Column>
+
+                        <Column id="idDashfrm3col3" >
+                            <header>
+                                <Label id="ifFrmDashLb3" text="{i18n>location}" />
+                            </header>
+                        </Column>
+
+                        <Column id="idDashfrm3col4" >
+                            <header>
+                                <Label id="ifFrmDashLb4" text="{i18n>confirmedOn}" />
+                            </header>
+                        </Column>
+
+                        <Column id="idDashfrm3col5" >
+                            <header>
+                                <Label id="ifFrmDashLb5" text="{i18n>approvedOn}" />
+                            </header>
+                        </Column>
+
+                        <Column id="idDashfrm3col6" >
+                            <header>
+                                <Label id="ifFrmDashLb6" text="{i18n>rejectedOn}" />
+                            </header>
+                        </Column>
+
+                        <Column id="idDashfrm3col7"  >
+                            <header>
+                                <Label id="ifFrmDashLb7" text="{i18n>status}" />
+                            </header>
+                        </Column>
+                        
+                        <Column id="idDashfrm3col8"  width="14rem" >
+                            <header>
+                                <Label id="idattach" wrapping="true" text="{i18n>attachmentLabel}" />
+                            </header>
+                        </Column>
+
+
+                       
+                    </columns>
+
+                    <items>
+                        <ColumnListItem id="idDashFrm3ClmLstItm" type="Navigation"  press="onRowSelectionChange" >
+                            <cells>
+                                <ObjectIdentifier id="idDashF3Onjid1" title="{ApplicationNo}" />
+
+                                <ObjectIdentifier id="idDashF3Onjid2" title="{Pernr}" text="{EmployeeName}" />
+
+                                <!-- <Text text="{EmployeeName}" /> -->
+
+                                <Text id="idDashF3CellVal3" text="{~}" />
+
+                                <Text id="idDashF3CellVal4"
+                                    text="{
+                            path:'ConfirmedOn',
+                            formatter:'.formatter.formatDate'
+                        }"
+                                />
+
+                                <Text id="idDashF3CellVal5"
+                                    text="{
+                            path:'ApprovedOn',
+                            formatter:'.formatter.formatDate'
+                        }"
+                                />
+
+                                <Text id="idDashF3CellVal6"
+                                    text="{
+                            path:'RejectedOn',
+                            formatter:'.formatter.formatDate'
+                        }"
+                                />
+
+                                <ObjectStatus id="idDashF3CellVal7"
+                                    class="statusBoldText"
+                                    text="{
+                            path:'Status',
+                            formatter:'.formatter.formatStatusText'
+                        }"
+                                    state="{
+                            path:'Status',
+                            formatter:'.formatter.formatStatusState'
+                        }"
+                                />
+                                <Button id="idBtnpdf"
+                                    text="{i18n>pdfBtnText}"
+                                    icon="sap-icon://pdf-reader"
+                                    type="Attention"
+                                    tooltip="{i18n>pdfTooltip}"
+                                    press="onPreviewPdf"
+                                    visible="{= ${Status} === 'Approved' || ${Status} === 'Rejected' }"
+                                />
+
+                              
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </f:content>
+         
+    </f:DynamicPage>
+</mvc:View>

@@ -1,0 +1,375 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+>
+    <Dialog
+        id="idPreClearanceDialog"
+        title="{i18n>applicationForPreClearance}"
+        titleAlignment="Center"
+        contentWidth="80%"
+        draggable="true"
+        resizable="true"
+        class="sapUiSizeCompact"
+    >
+        <content>
+            <f:Form
+                id="idPreClearanceForm"
+                editable="true"
+            >
+                <f:layout>
+                    <f:ResponsiveGridLayout
+                        id="idPreClearanceLayout"
+                        columnsXL="2"
+                        columnsL="2"
+                        columnsM="2"
+                        labelSpanXL="5"
+                        labelSpanL="5"
+                        labelSpanM="5"
+                        emptySpanXL="0"
+                        emptySpanL="0"
+                        emptySpanM="0"
+                    />
+                </f:layout>
+
+                <f:formContainers>
+                    <!-- LEFT COLUMN -->
+                    <f:FormContainer id="idPreClearanceFormContainerLeft">
+                        <f:formElements>
+                            <f:FormElement
+                                id="idFormElementNatureofsecurity"
+                                label="{i18n>Natureofsecurity}"
+                            >
+                                <f:fields>
+                                    <ComboBox
+                                        id="idNatureofsecurity"
+                                        selectedKey="{viewModel>/PreClearData/Natureofsecurity}"
+                                        required="true"
+                                        change="onComboBoxChange"
+                                        items="{
+                                             path: '/ZHR_CDS_IT_SECURITYNATURE_F4'
+                                        }"
+                                    >
+                                        <core:Item
+                                            id="idyun"
+                                            key="{StatusCode}"
+                                            text="{Statustext}"
+                                        />
+                                    </ComboBox>
+                                </f:fields>
+                            </f:FormElement>
+
+                            <f:FormElement
+                                id="idFormElementNoOfSecurities"
+                                label="{i18n>noOfSecurities}"
+                            >
+                                <f:fields>
+                                    <Input
+                                        id="idNoOfSecurities"
+                                        value="{viewModel>/PreClearData/NoOfSecurities}"
+                                        required="true"
+                                        type="Number"
+                                        change="onMandatoryChange"
+                                    />
+                                </f:fields>
+                            </f:FormElement>
+
+                            <f:FormElement
+                                id="idFormElementNatureOfApproval"
+                                label="{i18n>natureOfApproval}"
+                            >
+                                <f:fields>
+                                    <ComboBox
+                                        id="idNatureOfApproval"
+                                        selectedKey="{viewModel>/PreClearData/NatureOfApproval}"
+                                        required="true"
+                                        change="onComboBoxChange"
+                                        items="{
+                                             path: '/ZHR_CDS_IT_TRANSACTION_F4H'
+                                        }"
+                                    >
+                                        <core:Item
+                                            id="idyu7"
+                                            key="{Statustext}"
+                                            text="{StatusCode}"
+                                        />
+                                    </ComboBox>
+                                </f:fields>
+                            </f:FormElement>
+
+                            <f:FormElement
+                                id="idFormElementEstimatedValue"
+                                label="{i18n>estimatedValue}"
+                            >
+                                <f:fields>
+                                    <Input
+                                        id="idEstimatedValue"
+                                        value="{
+                                            path: 'viewModel>/PreClearData/EstimatedValue',
+                                            formatter: '.formatter.formatAmountToINR'
+                                        }"
+                                        required="true"
+                                        type="Text"
+                                        change="onEstimatedValueChange"
+                                    >
+                                        <customData>
+                                            <core:CustomData
+                                                key="path"
+                                                value="/PreClearData/EstimatedValue"
+                                                writeToDom="false"
+                                            />
+                                        </customData>
+                                    </Input>
+                                </f:fields>
+                            </f:FormElement>
+                            <!-- <f:FormElement
+                                id="idFormPrvAppNum"
+                                label="{i18n>PreviousApprovalNumber}"
+                            >
+                                <f:fields>
+                                    <Input
+                                        id="idPreviousApprovalNumber"
+                                        value="{viewModel>/PreClearData/PreviousApprovalNumber}"
+                                    />
+                                </f:fields>
+                            </f:FormElement> -->
+                            <f:FormElement
+                                id="idFormElementMail"
+                                label="{i18n>email}"
+                            >
+                                <f:fields>
+                                    <Input
+                                        id="idNoinp1mail"
+                                        value="{viewModel>/EmpDetails/EMAIL}"
+                                        editable="false"
+                                    />
+                                </f:fields>
+                            </f:FormElement>
+
+                            <f:FormElement
+                                id="idFormElementmobile"
+                                label="{i18n>mobile}"
+                            >
+                                <f:fields>
+                                    <Input
+                                        id="idNoinp2mob"
+                                        value="{viewModel>/EmpDetails/MOBILE}"
+                                        editable="false"
+                                    />
+                                </f:fields>
+                            </f:FormElement>
+
+                            <!-- <f:FormElement
+                                id="idFormElementOfficialAddress"
+                                label="{i18n>officialAddress}"
+                            >
+                                <f:fields>
+                                    <Input
+                                        id="idOfficialAddress"
+                                        value="{viewModel>/PreClearData/OfficialAddress}"
+                                        required="true"
+                                        change="onMandatoryChange"
+                                    />
+                                </f:fields>
+                            </f:FormElement> -->
+
+                            <!-- <f:FormElement
+                                id="idFormElementTelephone"
+                                label="{i18n>telephone}"
+                            >
+                                <f:fields>
+                                    <Input
+                                        id="idTelephone"
+                                        value="{viewModel>/PreClearData/Telephone}"
+                                        maxLength="10"
+                                        type="Number"
+                                        change="onMandatoryChange"
+                                    />
+                                </f:fields>
+                            </f:FormElement> -->
+
+                            <f:FormElement
+                                id="idFormElementFolioNo"
+                                label="{i18n>folioNo}"
+                            >
+                                <f:fields>
+                                    <Input
+                                        id="idFolioNo"
+                                        value="{viewModel>/PreClearData/FolioNo}"
+                                        required="true"
+                                        change="onMandatoryChange"
+                                    />
+                                </f:fields>
+                            </f:FormElement>
+                        </f:formElements>
+                    </f:FormContainer>
+
+                    <!-- RIGHT COLUMN -->
+                    <f:FormContainer id="idPreClearanceFormContainerRight">
+                        <f:formElements>
+                            <f:FormElement
+                                id="idFormElementEstimatedNo"
+                                label="{i18n>estimatedNo}"
+                            >
+                                <f:fields>
+                                    <Input
+                                        id="idEstimatedNo"
+                                        value="{viewModel>/PreClearData/EstimatedNo}"
+                                        required="true"
+                                        type="Number"
+                                        change="onMandatoryChange"
+                                    />
+                                </f:fields>
+                            </f:FormElement>
+
+                            <f:FormElement
+                                id="idFormElementWhetherProposed"
+                                label="{i18n>whetherProposed}"
+                            >
+                                <f:fields>
+                                    <ComboBox
+                                        id="idWhetherProposed"
+                                        selectedKey="{viewModel>/PreClearData/WhetherProposed}"
+                                        required="true"
+                                        change="onWhetherProposedChange"
+                                    >
+                                        <core:Item
+                                            id="idWhetherProposedItemSelf"
+                                            key="SELF"
+                                            text="{i18n>self}"
+                                        />
+                                        <core:Item
+                                            id="idWhetherProposedItemRelative"
+                                            key="RELATIVE"
+                                            text="{i18n>relative}"
+                                        />
+                                    </ComboBox>
+                                </f:fields>
+                            </f:FormElement>
+                            <!-- <f:FormElement
+                                id="idFormElementImmediateRelatives"
+                                label="{i18n>nameOfImmediateRelatives}"
+                                visible="{viewModel>/isRelativeMandatory}"
+                            >
+                                <f:fields>
+                                    <Input
+                                        id="idImmediateRelativeName"
+                                        value="{viewModel>/PreClearData/ImmediateRelativeName}"
+                                        required="{viewModel>/isRelativeMandatory}"
+                                        change="onMandatoryChange"
+                                    />
+                                </f:fields>
+                            </f:FormElement> -->
+                            <f:FormElement
+                                id="idFormElementImmediateRelatives"
+                                label="{i18n>nameOfImmediateRelatives}"
+                                visible="{viewModel>/isRelativeMandatory}"
+                            >
+                                <f:fields>
+                                    <ComboBox
+                                        id="idImmediateRelativeName"
+                                        selectedKey="{viewModel>/PreClearData/ImmediateRelativeName}"
+                                        required="{viewModel>/isRelativeMandatory}"
+                                        change="onRelativeChange"
+                                       items="{
+                                            path: '/RelativeMasterSet'
+                                            }"
+                                    >
+                                        <core:Item
+                                            id="idcor90"
+                                            key="{NameOfImmediateRelatives}"
+                                            text="{NameOfImmediateRelatives}"
+                                        />
+                                    </ComboBox>
+                                </f:fields>
+                            </f:FormElement>
+
+                            <!-- added new  -->
+                            <f:FormElement
+                                id="idFormElementNaturePrevTxn"
+                                label="{i18n>NaturePrevTxn}"
+                            >
+                                <f:fields>
+                                    <ComboBox
+                                        id="idNaturePrevTxn"
+                                        selectedKey="{viewModel>/PreClearData/NaturePrevTxn}"
+                                        change="onComboBoxChangeFlt"
+                                        items="{/ZHR_CDS_IT_PREVTXNNATURE_F4}"
+                                    >
+                                        <core:Item
+                                            id="idcoreitemnature"
+                                            key="{Keyvalue}"
+                                            text="{Description}"
+                                        />
+                                    </ComboBox>
+                                </f:fields>
+                            </f:FormElement>
+
+                            <!-- <f:FormElement
+                                id="idFormElementDateOfPurchase"
+                                label="{i18n>dateOfPurchase}"
+                            >
+                                <f:fields>
+                                    <DatePicker
+                                        id="idDateOfPurchase"
+                                        value="{viewModel>/PreClearData/DateOfPurchase}"
+                                        required="true"
+                                        change="onDateChange"
+                                        displayFormat="dd.MM.yyyy"
+                                        valueFormat="yyyyMMdd"
+                                    />
+                                </f:fields>
+                            </f:FormElement> -->
+
+                            <f:FormElement
+                                id="idFormElementPreviousApproval"
+                                label="{i18n>previousApproval}"
+                            >
+                                <f:fields>
+                                    <DatePicker
+                                        id="idPreviousApprovalDate1"
+                                        value="{viewModel>/PreClearData/PreviousApprovalDate}"
+                                        change="onDateChange"
+                                        displayFormat="dd.MM.yyyy"
+                                        valueFormat="yyyyMMdd"
+                                    />
+                                </f:fields>
+                            </f:FormElement>
+
+                            <!-- <f:FormElement
+                                id="idFormElementInterCom"
+                                label="{i18n>interCom}"
+                            >
+                                <f:fields>
+                                    <Input
+                                        id="idInterCom"
+                                        value="{viewModel>/PreClearData/InterCom}"
+                                        required="true"
+                                        change="onMandatoryChange"
+                                    />
+                                </f:fields>
+                            </f:FormElement> -->
+                        </f:formElements>
+                    </f:FormContainer>
+                </f:formContainers>
+            </f:Form>
+        </content>
+
+        <beginButton>
+            <Button
+                id="idPreClearanceButtonOk"
+                text="{i18n>ok}"
+                press="onSubmitPreClearDialog"
+                type="Emphasized"
+            />
+        </beginButton>
+
+        <endButton>
+            <Button
+                id="idPreClearanceButtonCancel"
+                text="{i18n>cancel}"
+                press="onClosePreClearDialog"
+            />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <SelectDialog
+    id="idFinancialYearVH"
+    title="{i18n>financialYear}"
+    titleAlignment="Center"
+    items="{/FinancialyearF4HSet}"
+    search="onFinancialYearSearch"
+    liveChange="onFinancialYearSearch"
+    confirm="onFinancialYearConfirm"
+    cancel="onFinancialYearCancel">
+
+    <StandardListItem id="idFinancialYearVHItem" 
+        title="{Year}" />
+
+</SelectDialog>
+</core:FragmentDefinition>
