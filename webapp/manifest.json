@@ -45,6 +45,11 @@
           "signature": {
             "parameters": {},
             "additionalParameters": "allowed"
+          },
+          "indicatorDataSource": {
+            "dataSource": "mainService",
+            "path": "PreClearSet/$count?$filter=ApprovalFlag eq 'R' and Status ne 'Rejected'",
+            "refresh": 0
           }
         }
       }

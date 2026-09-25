@@ -46,6 +46,7 @@ sap.ui.define([
                 filters: aFilters,
 
                 success: function (oResponse) {
+                    console.log("Authorization check response:", oResponse);
 
                     var bAuthorized = true;
 
@@ -61,6 +62,15 @@ sap.ui.define([
 
                     if (!bAuthorized) {
                         this.getRouter().navTo("RouteErrorPage", {}, true);
+                    }
+
+                    // Check Form 8 only if user is authorized
+                    if (bAuthorized && oResponse.results && oResponse.results.length > 0) {
+                        if (oResponse.results[0].Form8Fill === "No") {
+                            oViewModel.setProperty("/Form8Fill", false);
+                        } else {
+                            oViewModel.setProperty("/Form8Fill", true);
+                        }
                     }
                 }.bind(this),
 

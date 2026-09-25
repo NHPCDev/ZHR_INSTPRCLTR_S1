@@ -157,6 +157,12 @@ sap.ui.define([
             var oModel = this.getOwnerComponent().getModel();
             var oVM = this.getModel("viewModel");
 
+            if (oVM.getProperty("/Form8Fill") === false) {
+                MessageBox.error(this.getText("form8FillError"));
+                return;
+            }
+
+
             var aFilters = [
                 new Filter("Preview", FilterOperator.EQ, "X"),
                 new Filter("ApprovalFlag", FilterOperator.EQ, "R")
@@ -377,18 +383,18 @@ sap.ui.define([
                     wrks: oItem.wrks,
                     LocationId: oItem.LocationId,
                     ConfirmedOn: this.formatter.formatDate(oItem.ConfirmedOn),
-                    ApprovedOn: this.formatter.formatDate( oItem.ApprovedOn),
-                    RejectedOn: this.formatter.formatDate( oItem.RejectedOn ),
+                    ApprovedOn: this.formatter.formatDate(oItem.ApprovedOn),
+                    RejectedOn: this.formatter.formatDate(oItem.RejectedOn),
                     Status: this.formatter.formatStatusText(oItem.Status)
                 };
 
             }.bind(this));
 
-            var sFileName =this.getResourceBundle().getText("dashboardExcelTitle") + ".xlsx";
+            var sFileName = this.getResourceBundle().getText("dashboardExcelTitle") + ".xlsx";
 
 
             var oSettings = {
-                workbook: {columns: this.createDashboardColumnConfig() },
+                workbook: { columns: this.createDashboardColumnConfig() },
                 dataSource: aExportData,
                 fileName: sFileName
             };
@@ -396,8 +402,8 @@ sap.ui.define([
 
             var oSheet = new Spreadsheet(oSettings);
             oSheet.build().finally(function () {
-                    oSheet.destroy();
-                });
+                oSheet.destroy();
+            });
 
         },
         createDashboardColumnConfig: function () {
@@ -470,13 +476,16 @@ sap.ui.define([
 
             var oModel = this.getModel();
 
+            // var sUrl = oModel.sServiceUrl + "/AttachmentEntitySet(ApplicationNo='" + encodeURIComponent(sApplicationNo) + "',Pernr='" + encodeURIComponent(sPernr) + "')/$value";
             var sUrl =
                 oModel.sServiceUrl +
                 "/AttachmentEntitySet(ApplicationNo='" +
                 encodeURIComponent(sApplicationNo) +
                 "',Pernr='" +
                 encodeURIComponent(sPernr) +
-                "')/$value";
+                "',Form='3')/$value";
+
+            console.log("pdfUrl:", sUrl);
 
             this._pdfViewer.setSource(sUrl);
             this._pdfViewer.setTitle(this.getText("attachmentTitle"));

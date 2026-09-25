@@ -99,6 +99,7 @@ sap.ui.define([
                 filters: aFilters,
                 success: function (oData) {
                     oVM.setProperty("/PreClearDetails", oData.results[0]);
+                    oVM.setProperty("/empDesignation", oData.results[0].Designation);
                     console.log('ReadData', oData.results[0])
 
                     var oPreClearData = {
@@ -126,10 +127,7 @@ sap.ui.define([
                     oVM.setProperty("/partyDetails", [oPreClearData]);
                     this._updateAddButtonVisibility();
                     oVM.setProperty("/SelectedStatus", oData.results[0].Status);
-                    oVM.setProperty(
-                        "/HeaderTitle",
-                        this.getText("preClearanceTradeWithNo", [oData.results[0].ApplicationNo])
-                    );
+                    oVM.setProperty("/HeaderTitle", this.getText("preClearanceTradeWithNo", [oData.results[0].ApplicationNo]));
 
                     var bEditable = oData.results[0].Status === "Draft" ||
                         oData.results[0].Status === "New" ||
@@ -462,6 +460,7 @@ sap.ui.define([
             var oEmp = oVM.getProperty("/EmpDetails") || {};
             var oPreClear = oVM.getProperty("/PreClearDetails") || {};
             var aTransactions = oVM.getProperty("/partyDetails") || [];
+            var designation = oVM.getProperty("/empDesignation") || "";
 
 
             var oPayload = {
@@ -469,11 +468,15 @@ sap.ui.define([
                 Pernr: oEmp.PERNR || "",
                 Version: "1",
                 EmployeeName: oEmp.ENAME || "",
-                Designation: oEmp.DESIG || "",
+                Designation: designation,
                 Department: oEmp.Department || "",
                 DateOfJoiningDP: oPreClear.DateOfJoiningDP || "",
                 Status: sStatus
             };
+            // Generate Notification ID only when submitting
+            if (sStatus === "Confirmed") {
+                oPayload.BTPNotification = crypto.randomUUID();
+            }
 
             // if (sStatus === "CONFIRM" && oPreClear.ApplicationNo) {
             //     oPayload.ApplicationNo = oPreClear.ApplicationNo;
@@ -515,12 +518,42 @@ sap.ui.define([
             oModel.create("/PreClearSet", oPayload, {
 
                 success: function (oData) {
+                    console.log("Save Success response", oData);
                     BusyIndicator.hide();
 
                     // Clear create mode
                     oVM.setProperty("/isCreateMode", false);
 
                     var sApplicationNo = oData.ApplicationNo;
+
+                    // Send BTP notification only for Submit
+                    if (sStatus === "Confirmed") {
+
+                        var sNotificationId = oData.BTPNotification;
+                        var sApproverMail = oData.ApproverMailId;
+
+                        if (sNotificationId && sApproverMail) {
+
+                            var aApproverMail = sApproverMail.split(",").map(function (sMail) {
+                                    return sMail.trim();
+                                }).filter(Boolean);
+
+                            this.NotificationID = sNotificationId;
+                            this.ApproverID = aApproverMail;
+                            this.sRequestNumber = sApplicationNo;
+                            this.RequesterName = sap.ushell.Container.getUser().getFullName();
+
+                            var oNotifyPayload = this.createNotificationPayload(
+                                this.NotificationID,
+                                this.ApproverID,
+                                this.sRequestNumber,
+                                this.RequesterName
+                            );
+
+                            this.sendNotification(oNotifyPayload);
+                        }
+                    }
+
                     var sMessage = sStatus === "Draft"
                         ? oBundle.getText("savedSuccess", [sApplicationNo])
                         : oBundle.getText("submittedSuccess", [sApplicationNo]);

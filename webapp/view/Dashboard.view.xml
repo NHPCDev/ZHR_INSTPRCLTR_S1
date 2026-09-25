@@ -162,11 +162,11 @@
                             </header>
                         </Column>
 
-                        <Column id="idDashfrm3col3" >
+                        <!-- <Column id="idDashfrm3col3" >
                             <header>
                                 <Label id="ifFrmDashLb3" text="{i18n>location}" />
                             </header>
-                        </Column>
+                        </Column> -->
 
                         <Column id="idDashfrm3col4" >
                             <header>
@@ -211,7 +211,7 @@
 
                                 <!-- <Text text="{EmployeeName}" /> -->
 
-                                <Text id="idDashF3CellVal3" text="{~}" />
+                                <!-- <Text id="idDashF3CellVal3" text="{~}" /> -->
 
                                 <Text id="idDashF3CellVal4"
                                     text="{

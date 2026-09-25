@@ -8,14 +8,15 @@
         <HBox id="idHboxEmpDtls" class="sapUiSmallMarginBegin" justifyContent="SpaceBetween"  wrap="Wrap" >
             <!-- first column -->
             <VBox id="idHboxEmpDtlsVBox1" class="sapUiLargeMarginEnd">
+                 <ObjectStatus id="idHeaderEmpName" title="{i18n>employeeNameLabel}" text="{viewModel>/EmpDetails/ENAME}" class="sapUiTinyMarginTop" />
                 <ObjectStatus id="idHeaderEmpId" title="{i18n>employeeIdLabel}" text="{viewModel>/EmpDetails/PERNR}" class="sapUiTinyMarginTop" />
-                <ObjectStatus id="idHeaderEmpName" title="{i18n>employeeNameLabel}" text="{viewModel>/EmpDetails/ENAME}" class="sapUiTinyMarginTop" />
+               
 
                 
             </VBox>
             <!-- Second column -->
             <VBox id="idHboxEmpDtlsVBox2"  class="sapUiLargeMarginEnd">
-            <ObjectStatus id="idObjectStatus11" title="{i18n>employeeUserIdLabel}" text="{viewModel>/EmpDetails/USRID}" class="sapUiTinyMarginTop" />
+            <ObjectStatus id="idObjectStatus11" title="{i18n>employeeDesignationLabel}" text="{viewModel>/empDesignation}" class="sapUiTinyMarginTop" />
             <!-- <ObjectStatus id="idObjectStatus11" title="{i18n>employeeEmailLabel}" text="{viewModel>/EmpDetails/EMAIL}" class="sapUiTinyMarginTop" /> -->
             <ObjectStatus id="idObjectStatus12" title="{i18n>employeeMobileLabel}" text="{path: 'viewModel>/EmpDetails/MOBILE', formatter: '.formatter.formatBlankValue'}" class="sapUiTinyMarginTop" />
             </VBox>

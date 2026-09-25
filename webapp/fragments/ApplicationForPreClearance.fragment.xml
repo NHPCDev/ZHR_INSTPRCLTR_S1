@@ -271,8 +271,15 @@
                                         selectedKey="{viewModel>/PreClearData/ImmediateRelativeName}"
                                         required="{viewModel>/isRelativeMandatory}"
                                         change="onRelativeChange"
-                                       items="{
-                                            path: '/RelativeMasterSet'
+                                        items="{
+                                            path: '/RelativeMasterSet',
+                                            filters: [
+                                                        {
+                                                            path: 'DropDown',
+                                                            operator: 'EQ',
+                                                            value1: 'X'
+                                                        }
+                                                    ]
                                             }"
                                     >
                                         <core:Item

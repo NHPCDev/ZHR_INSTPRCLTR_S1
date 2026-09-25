@@ -337,20 +337,10 @@ sap.ui.define([
 
                 if (UserName) {
                     aFilters.push(
-                        new Filter(
-                            "USRID",
-                            FilterOperator.EQ,
-                            UserName
-                        )
-                    );
+                        new Filter("USRID", FilterOperator.EQ, UserName));
                 } else {
                     aFilters.push(
-                        new Filter(
-                            "DFLT",
-                            FilterOperator.EQ,
-                            "X"
-                        )
-                    );
+                        new Filter("DFLT", FilterOperator.EQ, "X"));
                 }
 
                 oModel.read("/ZFI_GH_USER_F4", {
@@ -360,29 +350,22 @@ sap.ui.define([
                         if (oData.results.length > 0) {
 
                             var oEmp = oData.results[0];
+                            console.log("Employee Details:", oEmp);
 
                             oVM.setProperty("/EmpDetails", oEmp);
+                            if (!UserName) {
+                                oVM.setProperty("/empDesignation", oEmp.DESIG);
+                            }
 
-                            var oPreClear =
-                                oVM.getProperty("/PreClearDetails") || {};
+                            var oPreClear = oVM.getProperty("/PreClearDetails") || {};
 
-                            oPreClear.EmployeeName =
-                                oPreClear.EmployeeName || oEmp.ENAME;
+                            oPreClear.EmployeeName = oPreClear.EmployeeName || oEmp.ENAME;
+                            oPreClear.Pernr = oPreClear.Pernr || oEmp.PERNR;
+                            oPreClear.Designation = oPreClear.Designation || oEmp.DESIG;
+                            oPreClear.DateOfJoiningDP = oPreClear.DateOfJoiningDP || oEmp.DateOfJoining;
+                            oVM.setProperty("/PreClearDetails", oPreClear);
 
-                            oPreClear.Pernr =
-                                oPreClear.Pernr || oEmp.PERNR;
 
-                            oPreClear.Designation =
-                                oPreClear.Designation || oEmp.DESIG;
-
-                            oPreClear.DateOfJoiningDP =
-                                oPreClear.DateOfJoiningDP ||
-                                oEmp.DateOfJoining;
-
-                            oVM.setProperty(
-                                "/PreClearDetails",
-                                oPreClear
-                            );
                         }
                     }.bind(this),
 
@@ -602,7 +585,7 @@ sap.ui.define([
                 var oComboBox = oEvent.getSource();
                 var oVM = this.getModel("viewModel");
 
-                // First perform your existing mandatory validation
+                // First perform  existing mandatory validation
                 this.onMandatoryChange(oEvent);
 
                 var oSelectedItem = oComboBox.getSelectedItem();
@@ -668,12 +651,12 @@ sap.ui.define([
                 var sSelectedKey = oEvent.getSource().getSelectedKey();
                 var oVM = this.getModel("viewModel");
 
-                oVM.setProperty( "/isRelativeMandatory", sSelectedKey === "RELATIVE" );
+                oVM.setProperty("/isRelativeMandatory", sSelectedKey === "RELATIVE");
 
                 // If SELF selected, clear relative name
                 if (sSelectedKey !== "RELATIVE") {
-                    oVM.setProperty("/PreClearData/ImmediateRelativeName",  "");
-                     oVM.setProperty( "/PreClearData/PAN", "");
+                    oVM.setProperty("/PreClearData/ImmediateRelativeName", "");
+                    oVM.setProperty("/PreClearData/PAN", "");
                 }
 
                 if (!sSelectedKey) {
@@ -692,30 +675,7 @@ sap.ui.define([
                     oEvent.getSource().setValueStateText("");
                 }
             },
-            // onEstimatedValueChange: function (oEvent) {
 
-            //     // Existing mandatory validation
-            //     this.onMandatoryChange(oEvent);
-
-            //     var oInput = oEvent.getSource();
-            //     var fValue = Number(oInput.getValue());
-
-            //     if (!fValue) {
-            //         return;
-            //     }
-
-            //     if (fValue < 1000000) {
-            //         oInput.setValueState("Error");
-            //         oInput.setValue(null);
-            //         oInput.setValueStateText(
-            //             this.getText("estimatedValueLimitMsg")
-            //         );
-            //         return;
-            //     }
-
-            //     oInput.setValueState("None");
-            //     oInput.setValueStateText("");
-            // }
             onEstimatedValueChange: function (oEvent) {
 
                 this.onMandatoryChange(oEvent);
@@ -745,12 +705,12 @@ sap.ui.define([
                     return;
                 }
 
-                if (fValue < 1000000) {
-                    oInput.setValueState("Error");
-                    oInput.setValue("");
-                    oInput.setValueStateText(this.getText("estimatedValueLimitMsg"));
-                    return;
-                }
+                // if (fValue < 1000000) {
+                //     oInput.setValueState("Error");
+                //     oInput.setValue("");
+                //     oInput.setValueStateText(this.getText("estimatedValueLimitMsg"));
+                //     return;
+                // }
 
                 oInput.setValueState("None");
                 oInput.setValueStateText("");
@@ -760,7 +720,78 @@ sap.ui.define([
                 }
 
                 oInput.setValue(this.formatter.formatAmountToINR(fValue));
-            }
+            },
+
+            //for notification
+            createNotificationPayload: function (sNotificationId, sRecipientUserId, sRequestNumber, sRequesterName) {
+                return {
+                    recipients: sRecipientUserId,
+                    notificationId: sNotificationId, // UUID generated in UI5
+                    businessProcessId: "ZPreClearanceApplications",
+                    businessProcessVersion: "1.0",
+
+                    // business parameters
+                    businessParameter1: sRequestNumber,    // Request Number
+                    businessParameter2: sRequesterName, // Employee/Requester Name
+
+                    // navigation context
+                    semanticObject: "ApprovePreClearanceTrades",
+                    semanticAction: "manage"
+                };
+            },
+            dismissNotification: function (sNotificationId, oNotifyPayload) {
+                var payload = {
+                    notificationId: sNotificationId
+                }
+                var oResourceBundle = this.getResourceBundle();
+                var sUrl = this.getBaseURL() + "/notify_api/customNotification/removeNotificationItem";
+                BusyIndicator.show();
+                jQuery.ajax({
+                    url: sUrl,
+                    type: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify(payload),
+                    success: function (oResp) {
+                        BusyIndicator.hide();
+                        if (oNotifyPayload.recipients.length !== 0) {
+                            this.sendNotification(oNotifyPayload);
+                        }
+                    }.bind(this),
+                    error: function (error) {
+                        BusyIndicator.hide();
+
+                    }.bind(this)
+                });
+            },
+            sendNotification: function (payload) {
+                var oResourceBundle = this.getResourceBundle();
+                var sUrl = this.getBaseURL() + "/notify_api/customNotification/sendNotificationItem";
+                BusyIndicator.show();
+                jQuery.ajax({
+                    url: sUrl,
+                    type: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    data: JSON.stringify(payload),
+                    success: function (oResp) {
+                        BusyIndicator.hide();
+                        console.log(oResp);
+                    }.bind(this),
+                    error: function (error) {
+                        BusyIndicator.hide();
+                        console.log(error);
+                    }.bind(this)
+                });
+            },
+            getBaseURL: function () {
+                var appId = this.getOwnerComponent().getManifestEntry("/sap.app/id");
+                var appPath = appId.replaceAll(".", "/");
+                var appModulePath = jQuery.sap.getModulePath(appPath);
+                return appModulePath;
+            },
 
 
         });

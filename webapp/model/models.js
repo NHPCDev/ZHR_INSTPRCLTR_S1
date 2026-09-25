@@ -49,6 +49,7 @@ sap.ui.define([
 
                 valueState: {},
                 valueStateText: {},
+                empDesignation: ""
 
                
             });
