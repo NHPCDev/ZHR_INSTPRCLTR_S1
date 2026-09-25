@@ -469,7 +469,7 @@ sap.ui.define([
 
             var oData = oContext.getObject();
 
-            console.log(oData);
+            // console.log(oData);
 
             var sApplicationNo = oData.ApplicationNo;
             var sPernr = oData.Pernr;
@@ -485,7 +485,7 @@ sap.ui.define([
                 encodeURIComponent(sPernr) +
                 "',Form='3')/$value";
 
-            console.log("pdfUrl:", sUrl);
+            // console.log("pdfUrl:", sUrl);
 
             this._pdfViewer.setSource(sUrl);
             this._pdfViewer.setTitle(this.getText("attachmentTitle"));
@@ -507,7 +507,7 @@ sap.ui.define([
                     } else {
                         oViewModel.setProperty("/isCreateAllowed", true);
                     }
-                    console.log("Create Allowed:", oViewModel.getProperty("/isCreateAllowed"));
+                    // console.log("Create Allowed:", oViewModel.getProperty("/isCreateAllowed"));
 
                 },
                 error: function (oError) {

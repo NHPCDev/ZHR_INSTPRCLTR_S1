@@ -207,11 +207,6 @@ sap.ui.define([
             },
             onFinancialYearValueHelp: function () {
 
-                console.log(
-                    "FinancialyearF4HSet :",
-                    this.getModel().getProperty("/FinancialyearF4HSet")
-                );
-
                 if (!this._pFinancialYearVH) {
 
                     this._pFinancialYearVH = Fragment.load({
@@ -350,7 +345,7 @@ sap.ui.define([
                         if (oData.results.length > 0) {
 
                             var oEmp = oData.results[0];
-                            console.log("Employee Details:", oEmp);
+                            // console.log("Employee Details:", oEmp);
 
                             oVM.setProperty("/EmpDetails", oEmp);
                             if (!UserName) {
@@ -598,7 +593,7 @@ sap.ui.define([
                 var oContext = oSelectedItem.getBindingContext();
                 var oRelativeData = oContext.getObject();
 
-                console.log("Selected Relative Data:", oRelativeData);
+                // console.log("Selected Relative Data:", oRelativeData);
 
                 // Store selected relative PAN
                 oVM.setProperty(
@@ -606,10 +601,10 @@ sap.ui.define([
                     oRelativeData.PanOfImmediateRelative || ""
                 );
 
-                console.log(
-                    "Selected Relative PAN:",
-                    oRelativeData.PanOfImmediateRelative
-                );
+                // console.log(
+                //     "Selected Relative PAN:",
+                //     oRelativeData.PanOfImmediateRelative
+                // );
             },
             onMandatoryChange: function (oEvent) {
 
@@ -778,11 +773,11 @@ sap.ui.define([
                     data: JSON.stringify(payload),
                     success: function (oResp) {
                         BusyIndicator.hide();
-                        console.log(oResp);
+                        // console.log(oResp);
                     }.bind(this),
                     error: function (error) {
                         BusyIndicator.hide();
-                        console.log(error);
+                        // console.log(error);
                     }.bind(this)
                 });
             },

@@ -100,7 +100,7 @@ sap.ui.define([
                 success: function (oData) {
                     oVM.setProperty("/PreClearDetails", oData.results[0]);
                     oVM.setProperty("/empDesignation", oData.results[0].Designation);
-                    console.log('ReadData', oData.results[0])
+                    // console.log('ReadData', oData.results[0])
 
                     var oPreClearData = {
                         Natureofsecurity: oData.results[0].Natureofsecurity,  // need proper property name from backend
@@ -122,7 +122,7 @@ sap.ui.define([
                         NameOfImmediateRelatives: oData.results[0].ImmediateRelativeName,
                         NaturePrevTxn: oData.results[0].NaturePrevTxn
                     };
-                    console.log("preclearData", oPreClearData)
+                    // console.log("preclearData", oPreClearData)
                     oVM.setProperty("/PreClearData", oPreClearData);
                     oVM.setProperty("/partyDetails", [oPreClearData]);
                     this._updateAddButtonVisibility();
@@ -142,7 +142,7 @@ sap.ui.define([
                             : "Single"
                     );
 
-                    console.log("viewModel", oVM);
+                    // console.log("viewModel", oVM);
                 }.bind(this),
 
                 error: function () {
@@ -281,7 +281,7 @@ sap.ui.define([
             // }
 
             var aData = oModel.getProperty("/partyDetails") || [];
-            console.log("aData", aData);
+            // console.log("aData", aData);
 
             if (this._editIndex !== undefined) {
                 oData.Counter = aData[this._editIndex].Counter;
@@ -513,12 +513,12 @@ sap.ui.define([
             }
 
             BusyIndicator.show();
-            console.log("oPayload", oPayload)
+            // console.log("oPayload", oPayload)
 
             oModel.create("/PreClearSet", oPayload, {
 
                 success: function (oData) {
-                    console.log("Save Success response", oData);
+                    // console.log("Save Success response", oData);
                     BusyIndicator.hide();
 
                     // Clear create mode
@@ -634,7 +634,7 @@ sap.ui.define([
                 filters: aFilters,
                 success: function (oData) {
                     oVM.setProperty("/History", oData.results);
-                    console.log("History Data", oData.results);
+                    // console.log("History Data", oData.results);
                 }.bind(this),
 
                 error: function () {
