@@ -301,6 +301,7 @@
                                         id="idNaturePrevTxn"
                                         selectedKey="{viewModel>/PreClearData/NaturePrevTxn}"
                                         change="onComboBoxChangeFlt"
+                                        required="true"
                                         items="{/ZHR_CDS_IT_PREVTXNNATURE_F4}"
                                     >
                                         <core:Item

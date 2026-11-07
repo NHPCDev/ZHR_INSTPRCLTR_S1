@@ -475,10 +475,10 @@ sap.ui.define([
                     //     id: "idDateOfPurchase",
                     //     label: oBundle.getText("dateOfPurchase")
                     // },
-                    // {
-                    //     id: "idPreviousApprovalDate1",
-                    //     label: oBundle.getText("previousApproval")
-                    // },
+                    {
+                        id: "idNaturePrevTxn",
+                        label: oBundle.getText("NaturePrevTxn")
+                    },
                     // {
                     //     id: "idOfficialAddress",
                     //     label: oBundle.getText("officialAddress")
@@ -493,8 +493,7 @@ sap.ui.define([
                     // }
                 ];
 
-                var oData = this.getModel("viewModel")
-                    .getProperty("/PreClearData");
+                var oData = this.getModel("viewModel").getProperty("/PreClearData");
 
                 // Make Relative Name mandatory only when RELATIVE is selected
                 if (oData && oData.WhetherProposed === "RELATIVE") {

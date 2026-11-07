@@ -242,7 +242,7 @@ sap.ui.define([
                 "idEstimatedValue",
                 "idWhetherProposed",
                 "idImmediateRelativeName",
-                // "idDateOfPurchase",
+               "idNaturePrevTxn",
                 "idPreviousApprovalDate1",
                 // "idOfficialAddress",
                 // "idEmail",
@@ -510,6 +510,10 @@ sap.ui.define([
                 // oPayload.Intercom = oTran.InterCom || "";
                 oPayload.Mobile = oEmp.MOBILE || "";
                 oPayload.NaturePrevTxn = oTran.NaturePrevTxn || "";
+
+                if(oPayload.SelfOrRelative === "SELF"){
+                    oPayload.ImmediateRelativeName = "Not Applicable";
+                }
             }
 
             BusyIndicator.show();
