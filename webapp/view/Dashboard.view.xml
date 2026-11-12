@@ -12,35 +12,35 @@
         headerExpanded="true"
     >
         <f:header>
-         <f:DynamicPageHeader id="idCompDynamicPageHeader">
-        <f:content>
-            <fb:FilterBar
-                id="idPreclrFilterbar"
-                persistencyKey="myPersKey"
-                useToolbar="false"
-                search=".onDashboardFilterSearch"
-                filterChange=".onFilterChange"
-                afterVariantLoad=".onAfterVariantLoad"
-                showClearOnFB="true"
-                clear="onFilterClear"
-            >
-                <fb:filterGroupItems>
-                    <fb:FilterGroupItem
-                        id="idApplicationNoFilterItem"
-                        name="ApplicationNo"
-                        label="{i18n>applicationNo}"
-                        groupName="Group1"
-                        visibleInFilterBar="true"
+            <f:DynamicPageHeader id="idCompDynamicPageHeader">
+                <f:content>
+                    <fb:FilterBar
+                        id="idPreclrFilterbar"
+                        persistencyKey="myPersKey"
+                        useToolbar="false"
+                        search=".onDashboardFilterSearch"
+                        filterChange=".onFilterChange"
+                        afterVariantLoad=".onAfterVariantLoad"
+                        showClearOnFB="true"
+                        clear="onFilterClear"
                     >
-                        <fb:control>
-                            <Input
-                                id="idApplicationNoInput"
-                                value="{filterModel>/ApplicationNo}"
-                            />
-                        </fb:control>
-                    </fb:FilterGroupItem>
+                        <fb:filterGroupItems>
+                            <fb:FilterGroupItem
+                                id="idApplicationNoFilterItem"
+                                name="ApplicationNo"
+                                label="{i18n>applicationNo}"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
+                            >
+                                <fb:control>
+                                    <Input
+                                        id="idApplicationNoInput"
+                                        value="{filterModel>/ApplicationNo}"
+                                    />
+                                </fb:control>
+                            </fb:FilterGroupItem>
 
-                    <!-- <fb:FilterGroupItem
+                            <!-- <fb:FilterGroupItem
                         id="idFinancialYearFilterItem"
                         name="FinancialYear"
                         label="{i18n>financialYear}"
@@ -64,35 +64,34 @@
                         </fb:control>
                     </fb:FilterGroupItem> -->
 
-                    <fb:FilterGroupItem
-                        id="idStatusFilterItem"
-                        name="Status"
-                        label="{i18n>status}"
-                        groupName="Group1"
-                        visibleInFilterBar="true"
-                    >
-                        <fb:control>
-                            <ComboBox
-                                id="idStatusComboBox"
-                                selectedKey="{filterModel>/Status}"
-                                items="{/ZHR_CDS_IT_STATUSCODE_F4H}"
-                                change="onComboBoxChangeFlt"
+                            <fb:FilterGroupItem
+                                id="idStatusFilterItem"
+                                name="Status"
+                                label="{i18n>status}"
+                                groupName="Group1"
+                                visibleInFilterBar="true"
                             >
-                                <core:Item
-                                    id="idStatusComboBoxItemTemplate"
-                                    key="{Statustext}"
-                                    text="{Statustext}"
-                                />
-                            </ComboBox>
-                        </fb:control>
-                    </fb:FilterGroupItem>
-                </fb:filterGroupItems>
-            </fb:FilterBar>
-            </f:content>
+                                <fb:control>
+                                    <ComboBox
+                                        id="idStatusComboBox"
+                                        selectedKey="{filterModel>/Status}"
+                                        items="{/ZHR_CDS_IT_STATUSCODE_F4H}"
+                                        change="onComboBoxChangeFlt"
+                                    >
+                                        <core:Item
+                                            id="idStatusComboBoxItemTemplate"
+                                            key="{StatusCode}"
+                                            text="{Statustext}"
+                                        />
+                                    </ComboBox>
+                                </fb:control>
+                            </fb:FilterGroupItem>
+                        </fb:filterGroupItems>
+                    </fb:FilterBar>
+                </f:content>
             </f:DynamicPageHeader>
         </f:header>
         <f:content>
-
             <VBox id="idPreclrDashboardVbox">
                 <Table
                     id="idDashboardTable"
@@ -101,7 +100,6 @@
                     growingThreshold="20"
                     sticky="ColumnHeaders,HeaderToolbar"
                     updateFinished="onTableUpdateFinished"
-
                     items="{
                         path: '/PreClearSet',
                         filters:[
@@ -144,9 +142,13 @@
                     </headerToolbar>
 
                     <columns>
-                        <Column id="idDashfrm3col1" >
+                        <Column id="idDashfrm3col1">
                             <header>
-                                <Label id="ifFrmDashLb1" text="{i18n>applicationNo}" wrapping="true" />
+                                <Label
+                                    id="ifFrmDashLb1"
+                                    text="{i18n>applicationNo}"
+                                    wrapping="true"
+                                />
                             </header>
                         </Column>
 
@@ -156,9 +158,12 @@
                             </header>
                         </Column> -->
 
-                        <Column id="idDashfrm3col2" >
+                        <Column id="idDashfrm3col2">
                             <header>
-                                <Label id="ifFrmDashLb2" text="{i18n>employeeName}" />
+                                <Label
+                                    id="ifFrmDashLb2"
+                                    text="{i18n>employeeName}"
+                                />
                             </header>
                         </Column>
 
@@ -168,73 +173,103 @@
                             </header>
                         </Column> -->
 
-                        <Column id="idDashfrm3col4" >
+                        <Column id="idDashfrm3col4">
                             <header>
-                                <Label id="ifFrmDashLb4" text="{i18n>confirmedOn}" />
+                                <Label
+                                    id="ifFrmDashLb4"
+                                    text="{i18n>confirmedOn}"
+                                />
                             </header>
                         </Column>
 
-                        <Column id="idDashfrm3col5" >
+                        <Column id="idDashfrm3col5">
                             <header>
-                                <Label id="ifFrmDashLb5" text="{i18n>approvedOn}" />
+                                <Label
+                                    id="ifFrmDashLb5"
+                                    text="{i18n>approvedOn}"
+                                />
                             </header>
                         </Column>
 
-                        <Column id="idDashfrm3col6" >
+                        <Column id="idDashfrm3col6">
                             <header>
-                                <Label id="ifFrmDashLb6" text="{i18n>rejectedOn}" />
+                                <Label
+                                    id="ifFrmDashLb6"
+                                    text="{i18n>rejectedOn}"
+                                />
                             </header>
                         </Column>
 
-                        <Column id="idDashfrm3col7"  >
+                        <Column id="idDashfrm3col7">
                             <header>
-                                <Label id="ifFrmDashLb7" text="{i18n>status}" />
-                            </header>
-                        </Column>
-                        
-                        <Column id="idDashfrm3col8"  width="14rem" >
-                            <header>
-                                <Label id="idattach" wrapping="true" text="{i18n>attachmentLabel}" />
+                                <Label
+                                    id="ifFrmDashLb7"
+                                    text="{i18n>status}"
+                                />
                             </header>
                         </Column>
 
-
-                       
+                        <Column
+                            id="idDashfrm3col8"
+                            width="14rem"
+                        >
+                            <header>
+                                <Label
+                                    id="idattach"
+                                    wrapping="true"
+                                    text="{i18n>attachmentLabel}"
+                                />
+                            </header>
+                        </Column>
                     </columns>
 
                     <items>
-                        <ColumnListItem id="idDashFrm3ClmLstItm" type="Navigation"  press="onRowSelectionChange" >
+                        <ColumnListItem
+                            id="idDashFrm3ClmLstItm"
+                            type="Navigation"
+                            press="onRowSelectionChange"
+                        >
                             <cells>
-                                <ObjectIdentifier id="idDashF3Onjid1" title="{ApplicationNo}" />
+                                <ObjectIdentifier
+                                    id="idDashF3Onjid1"
+                                    title="{ApplicationNo}"
+                                />
 
-                                <ObjectIdentifier id="idDashF3Onjid2" title="{Pernr}" text="{EmployeeName}" />
+                                <ObjectIdentifier
+                                    id="idDashF3Onjid2"
+                                    title="{Pernr}"
+                                    text="{EmployeeName}"
+                                />
 
                                 <!-- <Text text="{EmployeeName}" /> -->
 
                                 <!-- <Text id="idDashF3CellVal3" text="{~}" /> -->
 
-                                <Text id="idDashF3CellVal4"
+                                <Text
+                                    id="idDashF3CellVal4"
                                     text="{
                             path:'ConfirmedOn',
                             formatter:'.formatter.formatDate'
                         }"
                                 />
 
-                                <Text id="idDashF3CellVal5"
+                                <Text
+                                    id="idDashF3CellVal5"
                                     text="{
                             path:'ApprovedOn',
                             formatter:'.formatter.formatDate'
                         }"
                                 />
 
-                                <Text id="idDashF3CellVal6"
+                                <Text
+                                    id="idDashF3CellVal6"
                                     text="{
                             path:'RejectedOn',
                             formatter:'.formatter.formatDate'
                         }"
                                 />
 
-                                <ObjectStatus id="idDashF3CellVal7"
+                                <!-- <ObjectStatus id="idDashF3CellVal7"
                                     class="statusBoldText"
                                     text="{
                             path:'Status',
@@ -244,23 +279,30 @@
                             path:'Status',
                             formatter:'.formatter.formatStatusState'
                         }"
+                                /> -->
+                                <ObjectStatus
+                                    id="idDashF3CellVal7"
+                                    class="statusBoldText"
+                                    text="{StatusText}"
+                                    state="{
+                                    path:'Status',
+                                    formatter:'.formatter.formatStatusState'
+                                    }"
                                 />
-                                <Button id="idBtnpdf"
+                                <Button
+                                    id="idBtnpdf"
                                     text="{i18n>pdfBtnText}"
                                     icon="sap-icon://pdf-reader"
                                     type="Attention"
                                     tooltip="{i18n>pdfTooltip}"
                                     press="onPreviewPdf"
-                                    visible="{= ${Status} === 'Approved' || ${Status} === 'Rejected' }"
+                                    visible="{= ${Status} === '03' || ${Status} === '05' }"
                                 />
-
-                              
                             </cells>
                         </ColumnListItem>
                     </items>
                 </Table>
             </VBox>
         </f:content>
-         
     </f:DynamicPage>
 </mvc:View>

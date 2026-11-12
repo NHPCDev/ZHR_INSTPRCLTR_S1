@@ -73,6 +73,7 @@ sap.ui.define([
                 oVM.setProperty("/partyDetails", []);
                 oVM.setProperty("/PreClearData", {});
                 oVM.setProperty("/SelectedStatus", "New");
+                oVM.setProperty("/PreClearDetails/StatusText", "New");
                 oVM.setProperty("/HeaderTitle", this.getText("createPreClearanceTitle"));
                 oVM.setProperty("/editable", true);
                 oVM.setProperty("/tableSelectionMode", "Single");
@@ -126,18 +127,22 @@ sap.ui.define([
                     oVM.setProperty("/PreClearData", oPreClearData);
                     oVM.setProperty("/partyDetails", [oPreClearData]);
                     this._updateAddButtonVisibility();
-                    oVM.setProperty("/SelectedStatus", oData.results[0].Status);
+                    // oVM.setProperty("/SelectedStatus", oData.results[0].Status);
+                    oVM.setProperty("/SelectedStatus", oData.results[0].StatusText);
                     oVM.setProperty("/HeaderTitle", this.getText("preClearanceTradeWithNo", [oData.results[0].ApplicationNo]));
 
-                    var bEditable = oData.results[0].Status === "Draft" ||
-                        oData.results[0].Status === "New" ||
-                        oData.results[0].Status === "SAVE" ||
-                        oData.results[0].Status === "Returned";
+                    // var bEditable = oData.results[0].Status === "Draft" ||
+                    //     oData.results[0].Status === "New" ||
+                    //     oData.results[0].Status === "SAVE" ||
+                    //     oData.results[0].Status === "Returned";
+
+                    var bEditable = oData.results[0].Status === "01" ||
+                        oData.results[0].Status === "04";
 
                     oVM.setProperty("/editable", bEditable);
                     oVM.setProperty(
                         "/tableSelectionMode",
-                        oData.results[0].Status === "Confirmed" || oData.results[0].Status === "Submitted"
+                        oData.results[0].Status === "02"
                             ? "None"
                             : "Single"
                     );
@@ -242,7 +247,7 @@ sap.ui.define([
                 "idEstimatedValue",
                 "idWhetherProposed",
                 "idImmediateRelativeName",
-               "idNaturePrevTxn",
+                "idNaturePrevTxn",
                 "idPreviousApprovalDate1",
                 // "idOfficialAddress",
                 // "idEmail",
@@ -413,7 +418,7 @@ sap.ui.define([
 
                 onClose: function (sAction) {
                     if (sAction === confirmBtn) {
-                        this._savePreClearance("Draft");
+                        this._savePreClearance("01");
                     }
                 }.bind(this)
             });
@@ -446,7 +451,7 @@ sap.ui.define([
 
                 onClose: function (sAction) {
                     if (sAction === confirmBtn) {
-                        this._savePreClearance("Confirmed");
+                        this._savePreClearance("02");
                     }
                 }.bind(this)
             });
@@ -474,7 +479,7 @@ sap.ui.define([
                 Status: sStatus
             };
             // Generate Notification ID only when submitting
-            if (sStatus === "Confirmed") {
+            if (sStatus === "02") {
                 oPayload.BTPNotification = crypto.randomUUID();
             }
 
@@ -511,13 +516,13 @@ sap.ui.define([
                 oPayload.Mobile = oEmp.MOBILE || "";
                 oPayload.NaturePrevTxn = oTran.NaturePrevTxn || "";
 
-                if(oPayload.SelfOrRelative === "SELF"){
+                if (oPayload.SelfOrRelative === "SELF") {
                     oPayload.ImmediateRelativeName = "Not Applicable";
                 }
             }
 
             BusyIndicator.show();
-            // console.log("oPayload", oPayload)
+            console.log("oPayload", oPayload)
 
             oModel.create("/PreClearSet", oPayload, {
 
@@ -531,7 +536,7 @@ sap.ui.define([
                     var sApplicationNo = oData.ApplicationNo;
 
                     // Send BTP notification only for Submit
-                    if (sStatus === "Confirmed") {
+                    if (sStatus === "02") {
 
                         var sNotificationId = oData.BTPNotification;
                         var sApproverMail = oData.ApproverMailId;
@@ -539,8 +544,8 @@ sap.ui.define([
                         if (sNotificationId && sApproverMail) {
 
                             var aApproverMail = sApproverMail.split(",").map(function (sMail) {
-                                    return sMail.trim();
-                                }).filter(Boolean);
+                                return sMail.trim();
+                            }).filter(Boolean);
 
                             this.NotificationID = sNotificationId;
                             this.ApproverID = aApproverMail;
@@ -558,7 +563,7 @@ sap.ui.define([
                         }
                     }
 
-                    var sMessage = sStatus === "Draft"
+                    var sMessage = sStatus === "01"
                         ? oBundle.getText("savedSuccess", [sApplicationNo])
                         : oBundle.getText("submittedSuccess", [sApplicationNo]);
 

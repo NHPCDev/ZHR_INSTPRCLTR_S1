@@ -48,7 +48,7 @@
           },
           "indicatorDataSource": {
             "dataSource": "mainService",
-            "path": "PreClearSet/$count?$filter=ApprovalFlag eq 'R' and Status ne 'Rejected'",
+            "path": "PreClearSet/$count?$filter=ApprovalFlag eq 'R' and Status ne '05'",
             "refresh": 0
           }
         }

@@ -60,8 +60,6 @@ sap.ui.define([
             }
         },
 
-
-
         formatObjectPageTitle: function (sAppNo) {
             const oResourceBundle = this.getView().getModel("i18n").getResourceBundle();
             const sText = oResourceBundle.getText("ObjectPageTitle")
@@ -78,14 +76,105 @@ sap.ui.define([
                 : `Create ${sText}`;
         },
 
+        // formatStatusText: function (sStatus) {
+
+        //     if (!sStatus) {
+        //         return "";
+        //     }
+
+        //     switch (sStatus.toUpperCase()) {
+
+        //         case "NEW":
+        //             return "New";
+
+        //         case "DRAFT":
+        //             return "Draft";
+
+        //         case "SAVED":
+        //             return "Saved";
+
+        //         case "SUBMIT":
+        //         case "SUBMITTED":
+        //             return "Submitted";
+
+        //         case "CONFIRM":
+        //         case "CONFIRMED":
+        //             return "Confirmed"
+
+        //         case "APPROVE":
+        //         case "APPROVED":
+        //             return "Approved"
+
+        //         case "RETURN":
+        //         case "RETURNED":
+        //             return "Returned"
+
+        //         default:
+        //             return sStatus;
+        //     }
+        // },
+
+        // formatStatusState: function (sStatus) {
+
+        //     if (!sStatus) {
+        //         return "None";
+        //     }
+
+        //     switch (sStatus.toUpperCase()) {
+
+        //         case "NEW":
+        //         case "CONFIRM":
+        //         case "CONFIRMED":
+        //             return "Information";
+
+        //         case "DRAFT":
+        //         case "PENDING":
+        //             return "Warning";
+
+        //         case "SUBMIT":
+        //         case "SUBMITTED":
+        //         case "APPROVE":
+        //         case "APPROVED":
+        //             return "Success";
+
+        //         case "REJECT":
+        //         case "REJECTED":
+        //             return "Error";
+
+        //         case "RETURN":
+        //         case "RETURNED":
+        //             return "Warning";
+
+        //         default:
+        //             return "Information";
+        //     }
+        // },
+
         formatStatusText: function (sStatus) {
 
             if (!sStatus) {
                 return "";
             }
 
-            switch (sStatus.toUpperCase()) {
+            switch (sStatus.toString().toUpperCase()) {
 
+                // New backend status codes
+                case "01":
+                    return "Draft";
+
+                case "02":
+                    return "Confirmed";
+
+                case "03":
+                    return "Approved";
+
+                case "04":
+                    return "Returned";
+
+                case "05":
+                    return "Rejected";
+
+                // Existing values - backward compatibility
                 case "NEW":
                     return "New";
 
@@ -101,15 +190,19 @@ sap.ui.define([
 
                 case "CONFIRM":
                 case "CONFIRMED":
-                    return "Confirmed"
+                    return "Confirmed";
 
                 case "APPROVE":
                 case "APPROVED":
-                    return "Approved"
+                    return "Approved";
 
                 case "RETURN":
                 case "RETURNED":
-                    return "Returned"
+                    return "Returned";
+
+                case "REJECT":
+                case "REJECTED":
+                    return "Rejected";
 
                 default:
                     return sStatus;
@@ -122,8 +215,25 @@ sap.ui.define([
                 return "None";
             }
 
-            switch (sStatus.toUpperCase()) {
+            switch (sStatus.toString().toUpperCase()) {
 
+                // New backend status codes
+                case "01":
+                    return "Warning";       // Draft
+
+                case "02":
+                    return "Information";   // Confirmed
+
+                case "03":
+                    return "Success";       // Approved
+
+                case "04":
+                    return "Warning";       // Returned
+
+                case "05":
+                    return "Error";         // Rejected
+
+                // Existing values - backward compatibility
                 case "NEW":
                 case "CONFIRM":
                 case "CONFIRMED":
@@ -131,6 +241,8 @@ sap.ui.define([
 
                 case "DRAFT":
                 case "PENDING":
+                case "RETURN":
+                case "RETURNED":
                     return "Warning";
 
                 case "SUBMIT":
@@ -143,14 +255,11 @@ sap.ui.define([
                 case "REJECTED":
                     return "Error";
 
-                case "RETURN":
-                case "RETURNED":
-                    return "Warning";
-
                 default:
                     return "Information";
             }
         },
+
         formatHeaderTitle: function (sTitle) {
             return sTitle || "";
         },

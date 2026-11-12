@@ -24,7 +24,9 @@
                         upperCaseAnchorBar="false"
                     >
                         <uxap:headerTitle>
-                            <uxap:ObjectPageDynamicHeaderTitle id="idObjectPageDynamicHeaderTitle">
+                            <uxap:ObjectPageDynamicHeaderTitle
+                                id="idObjectPageDynamicHeaderTitle"
+                            >
                                 <uxap:expandedHeading>
                                     <HBox id="idExpandedHBox">
                                         <Avatar
@@ -32,7 +34,10 @@
                                             src="sap-icon://create"
                                             displayShape="Square"
                                         />
-                                        <VBox id="idExpandedVBox" class="sapUiSmallMarginBegin">
+                                        <VBox
+                                            id="idExpandedVBox"
+                                            class="sapUiSmallMarginBegin"
+                                        >
                                             <Title
                                                 id="idDetailTitleExpanded"
                                                 text="{viewModel>/HeaderTitle}"
@@ -42,7 +47,7 @@
                                                 renderType="Bare"
                                                 wrap="Wrap"
                                             >
-                                                <ObjectStatus
+                                                <!-- <ObjectStatus
                                                     id="idDetailObjectStatusExpanded"
                                                     title="{i18n>StatusLabel}"
                                                     class="statusBoldText"
@@ -54,6 +59,16 @@
                                                         path:'viewModel>/PreClearDetails/Status',
                                                         formatter:'.formatter.formatStatusState'
                                                     }"
+                                                /> -->
+                                                <ObjectStatus
+                                                    id="idDetailObjectStatusExpanded"
+                                                    title="{i18n>StatusLabel}"
+                                                    class="statusBoldText"
+                                                    text="{viewModel>/PreClearDetails/StatusText}"
+                                                    state="{
+                                                    path:'viewModel>/PreClearDetails/Status',
+                                                    formatter:'.formatter.formatStatusState'
+                                                }"
                                                 />
                                             </HBox>
                                         </VBox>
@@ -67,7 +82,10 @@
                                             src="sap-icon://create"
                                             displayShape="Square"
                                         />
-                                        <VBox id="idSnappedVBox" class="sapUiSmallMarginBegin">
+                                        <VBox
+                                            id="idSnappedVBox"
+                                            class="sapUiSmallMarginBegin"
+                                        >
                                             <Title
                                                 id="idDetailTitleSnapped"
                                                 text="{viewModel>/HeaderTitle}"
@@ -81,6 +99,16 @@
                                                     id="idDetailObjectStatusSnapped"
                                                     title="{i18n>StatusLabel}"
                                                     class="statusBoldText"
+                                                    text="{viewModel>/PreClearDetails/StatusText}"
+                                                    state="{
+                                                    path:'viewModel>/PreClearDetails/Status',
+                                                    formatter:'.formatter.formatStatusState'
+                                                }"
+                                                />
+                                                <!-- <ObjectStatus
+                                                    id="idDetailObjectStatusSnapped"
+                                                    title="{i18n>StatusLabel}"
+                                                    class="statusBoldText"
                                                     text="{
                                                         path:'viewModel>/PreClearDetails/Status',
                                                         formatter:'.formatter.formatStatusText'
@@ -89,7 +117,7 @@
                                                         path:'viewModel>/PreClearDetails/Status',
                                                         formatter:'.formatter.formatStatusState'
                                                     }"
-                                                />
+                                                /> -->
                                             </HBox>
                                         </VBox>
                                     </HBox>
@@ -194,10 +222,14 @@
                                 title="{i18n>HistoryWithRemarks}"
                                 titleUppercase="false"
                             >
-                                 <uxap:subSections>
+                                <uxap:subSections>
                                     <uxap:ObjectPageSubSection
                                         id="idAprObjSubSecRemark"
-                                        visible="{= ${viewModel>/PreClearDetails/Status} === 'Confirmed' || ${viewModel>/PreClearDetails/Status} === 'Approved' || ${viewModel>/PreClearDetails/Status} === 'Rejected' }"
+                                        visible="{=
+                                        ${viewModel>/PreClearDetails/Status} === '02' ||
+                                        ${viewModel>/PreClearDetails/Status} === '03' ||
+                                        ${viewModel>/PreClearDetails/Status} === '05'
+                                    }"
                                     >
                                         <uxap:blocks>
                                             <VBox id="idAprObjSecRemarkVB">
@@ -210,7 +242,6 @@
                                     </uxap:ObjectPageSubSection>
                                 </uxap:subSections>
                             </uxap:ObjectPageSection>
-                            
                         </uxap:sections>
                     </uxap:ObjectPageLayout>
                 </content>
@@ -235,9 +266,7 @@
                             type="Success"
                             press="handleSubmitBtnPress"
                             visible="{viewModel>/editable}"
-                            
                         />
-                       
                     </OverflowToolbar>
                 </footer>
             </Page>

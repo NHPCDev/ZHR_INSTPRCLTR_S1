@@ -279,7 +279,8 @@ sap.ui.define([
 
             var oVM = this.getModel("viewModel");
 
-            oVM.setProperty("/SelectedStatus", oData.Status);
+            // oVM.setProperty("/SelectedStatus", oData.Status);
+            oVM.setProperty("/SelectedStatus", oData.StatusText);
 
             this.navTo("RouteDetail", {
                 ApplicationNo: oData.ApplicationNo,
@@ -385,7 +386,8 @@ sap.ui.define([
                     ConfirmedOn: this.formatter.formatDate(oItem.ConfirmedOn),
                     ApprovedOn: this.formatter.formatDate(oItem.ApprovedOn),
                     RejectedOn: this.formatter.formatDate(oItem.RejectedOn),
-                    Status: this.formatter.formatStatusText(oItem.Status)
+                    // Status: this.formatter.formatStatusText(oItem.Status)
+                    Status: oItem.StatusText
                 };
 
             }.bind(this));
