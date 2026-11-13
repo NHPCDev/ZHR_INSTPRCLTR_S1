@@ -522,7 +522,7 @@ sap.ui.define([
             }
 
             BusyIndicator.show();
-            console.log("oPayload", oPayload)
+            // console.log("oPayload", oPayload)
 
             oModel.create("/PreClearSet", oPayload, {
 
